@@ -1,0 +1,7 @@
+{
+    "require": {
+        "vlucas/phpdotenv": "^2.0",
+        "php-curl-class/php-curl-class": "^3.5",
+        "league/climate": "^3.1"
+    }
+}
