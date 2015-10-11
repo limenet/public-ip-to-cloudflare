@@ -20,7 +20,6 @@ $publicIp = $curlIP->get('http://ipecho.net/plain');
 
 $climate->out('Your public IP address is '.$publicIp);
 
-
 $curlCF->setHeader('X-Auth-Key', $_ENV['CLOUDFLARE_KEY']);
 $curlCF->setHeader('X-Auth-Email', $_ENV['CLOUDFLARE_EMAIL']);
 $curlCF->setHeader('Content-Type', 'application/json');
@@ -32,7 +31,6 @@ $curlCF->get('https://api.cloudflare.com/client/v4/zones',
 );
 
 $zoneId = $curlCF->response->result[0]->id;
-
 
 $curlCF->get('https://api.cloudflare.com/client/v4/zones/'.$zoneId.'/dns_records',
     [
@@ -57,9 +55,9 @@ if ($curlCF->response->success) {
     $climate->error('Failed to update '.$_ENV['SUBDOMAIN']);
     $errors = [];
     $i = 0;
-    foreach($curlCF->response->errors as $error) {
+    foreach ($curlCF->response->errors as $error) {
         $errors[$i] = $error->message.': ';
-        $chains     = [];
+        $chains = [];
 
         foreach ($error->error_chain as $chain) {
             $chains[] = $chain->message;
