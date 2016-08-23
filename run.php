@@ -16,6 +16,12 @@ $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
 $dotenv->required(['CLOUDFLARE_EMAIL', 'CLOUDFLARE_KEY', 'DOMAIN', 'SUBDOMAIN', 'RECORD_TYPE']);
 
+if (empty($_ENV['PROXIED'])) {
+    $_ENV['PROXIED'] = false;
+} else {
+    $_ENV['PROXIED'] = (bool) $_ENV['PROXIED'];
+}
+
 $publicIp = $curlIP->get('http://ipecho.net/plain');
 
 $climate->out('Your public IP address is '.$publicIp);
@@ -46,6 +52,8 @@ $curlCF->put('https://api.cloudflare.com/client/v4/zones/'.$zoneId.'/dns_records
         'zone_name' => $_ENV['DOMAIN'],
         'content'   => $publicIp,
         'type'      => $_ENV['RECORD_TYPE'],
+        'proxiable' => true,
+        'proxied'   => $_ENV['PROXIED'],
     ]
 );
 
