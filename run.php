@@ -2,6 +2,15 @@
 
 require 'vendor/autoload.php';
 
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+$dotenv->required(['CLOUDFLARE_EMAIL', 'CLOUDFLARE_KEY', 'DOMAIN', 'SUBDOMAIN', 'RECORD_TYPE']);
+if (empty($_ENV['PROXIED'])) {
+    $_ENV['PROXIED'] = false;
+} else {
+    $_ENV['PROXIED'] = (bool) $_ENV['PROXIED'];
+}
+
 $climate = new League\CLImate\CLImate();
 
 $climate->out('--- public-ip-to-cloudflare ---');
@@ -9,71 +18,42 @@ $climate->out('--- public-ip-to-cloudflare ---');
 use \Curl\Curl;
 
 $curlIP = new Curl();
-$curlCF = new Curl();
-$curlCF->setOpt(CURLOPT_CAINFO, __DIR__.'/cacert.pem');
 
-$dotenv = new Dotenv\Dotenv(__DIR__);
-$dotenv->load();
-$dotenv->required(['CLOUDFLARE_EMAIL', 'CLOUDFLARE_KEY', 'DOMAIN', 'SUBDOMAIN', 'RECORD_TYPE']);
+$cfKey     = new \Cloudflare\API\Auth\APIKey($_ENV['CLOUDFLARE_EMAIL'], $_ENV['CLOUDFLARE_KEY']);
+$cfAdapter = new Cloudflare\API\Adapter\Guzzle($cfKey);
+$cfDns    = new \Cloudflare\API\Endpoints\DNS($cfAdapter);
+$cfZone    = new \Cloudflare\API\Endpoints\Zones($cfAdapter);
 
-if (empty($_ENV['PROXIED'])) {
-    $_ENV['PROXIED'] = false;
-} else {
-    $_ENV['PROXIED'] = (bool) $_ENV['PROXIED'];
-}
 
 $publicIp = $curlIP->get('http://ipecho.net/plain');
 
 $climate->out('Your public IP address is '.$publicIp);
 
-$curlCF->setHeader('X-Auth-Key', $_ENV['CLOUDFLARE_KEY']);
-$curlCF->setHeader('X-Auth-Email', $_ENV['CLOUDFLARE_EMAIL']);
-$curlCF->setHeader('Content-Type', 'application/json');
+try {
+$cfCall = $cfZone->getZoneID($_ENV['DOMAIN']);
+$zoneId = $cfCall;
 
-$curlCF->get('https://api.cloudflare.com/client/v4/zones',
-    [
-        'name' => $_ENV['DOMAIN'],
-    ]
-);
+$cfCall = $cfDns->listRecords($zoneId, '', $_ENV['SUBDOMAIN']);
+if (count($cfCall->result) !== 1) {
+    $climate->error(sprintf('Record %2$s not found in zone %1$s', $_ENV['DOMAIN'], $_ENV['SUBDOMAIN']));
+    $climate->error('Please first add the record manually. This will be fixed in a future version.');
+    die();
+}
 
-$zoneId = $curlCF->response->result[0]->id;
+$recordId = $cfCall->result[0]->id;
 
-$curlCF->get('https://api.cloudflare.com/client/v4/zones/'.$zoneId.'/dns_records',
-    [
-        'name' => $_ENV['SUBDOMAIN'],
-    ]
-);
-
-$recordId = $curlCF->response->result[0]->id;
-
-$curlCF->put('https://api.cloudflare.com/client/v4/zones/'.$zoneId.'/dns_records/'.$recordId,
-    [
-        'name'      => $_ENV['SUBDOMAIN'],
-        'zone_name' => $_ENV['DOMAIN'],
-        'content'   => $publicIp,
+$cfCall = $cfDns->updateRecordDetails($zoneId, $recordId, [
         'type'      => $_ENV['RECORD_TYPE'],
+        'content'   => $publicIp,
         'proxiable' => true,
         'proxied'   => $_ENV['PROXIED'],
     ]
 );
-
-if ($curlCF->response->success) {
-    $climate->green('Successfully updated '.$_ENV['SUBDOMAIN']);
-} else {
+}catch(Exception $e){
     $climate->error('Failed to update '.$_ENV['SUBDOMAIN']);
-    $errors = [];
-    $i = 0;
-    foreach ($curlCF->response->errors as $error) {
-        $errors[$i] = $error->message.': ';
-        $chains = [];
-
-        foreach ($error->error_chain as $chain) {
-            $chains[] = $chain->message;
-        }
-
-        $errors[$i] .= implode(', ', $chains);
-        $i++;
+    $climate->error($e->getMessage());
+    if (property_exists($cfCall, 'errors')) {
+        $climate->dump($cfCall->errors);
     }
-
-    $climate->error($errors);
 }
+    $climate->green('Successfully updated '.$_ENV['SUBDOMAIN']);
