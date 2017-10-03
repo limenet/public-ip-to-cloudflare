@@ -28,6 +28,8 @@ $publicIp = $curlIP->get('http://ipecho.net/plain');
 
 $climate->out('Your public IP address is '.$publicIp);
 
+$exceptionThrown = false;
+
 try {
     $cfCall = $cfZone->getZoneID($_ENV['DOMAIN']);
     $zoneId = $cfCall;
@@ -43,16 +45,21 @@ try {
 
     $cfCall = $cfDns->updateRecordDetails($zoneId, $recordId, [
         'type'      => $_ENV['RECORD_TYPE'],
+        'name' => $_ENV['SUBDOMAIN'],
         'content'   => $publicIp,
-        'proxiable' => true,
         'proxied'   => $_ENV['PROXIED'],
-    ]
-);
+        ]
+    );
 } catch (Exception $e) {
+    $exceptionThrown = true;
+
     $climate->error('Failed to update '.$_ENV['SUBDOMAIN']);
     $climate->error($e->getMessage());
-    if (property_exists($cfCall, 'errors')) {
+    if (isset($cfCall) && property_exists($cfCall, 'errors')) {
         $climate->dump($cfCall->errors);
     }
 }
-    $climate->green('Successfully updated '.$_ENV['SUBDOMAIN']);
+
+if (!$exceptionThrown){
+$climate->green('Successfully updated '.$_ENV['SUBDOMAIN']);
+}
