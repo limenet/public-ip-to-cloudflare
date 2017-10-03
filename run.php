@@ -45,7 +45,7 @@ try {
 
     $cfCall = $cfDns->updateRecordDetails($zoneId, $recordId, [
         'type'      => $_ENV['RECORD_TYPE'],
-        'name' => $_ENV['SUBDOMAIN'],
+        'name'      => $_ENV['SUBDOMAIN'],
         'content'   => $publicIp,
         'proxied'   => $_ENV['PROXIED'],
         ]
@@ -60,6 +60,6 @@ try {
     }
 }
 
-if (!$exceptionThrown){
-$climate->green('Successfully updated '.$_ENV['SUBDOMAIN']);
+if (!$exceptionThrown) {
+    $climate->green('Successfully updated '.$_ENV['SUBDOMAIN']);
 }
