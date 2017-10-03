@@ -1,6 +1,6 @@
 {
     "require": {
-        "cloudflare/sdk": "^1.0",
+        "cloudflare/sdk": "dev-master",
         "league/climate": "^3.1",
         "php-curl-class/php-curl-class": "^3.5",
         "vlucas/phpdotenv": "^2.0"
@@ -9,5 +9,11 @@
         "optimize-autoloader": true,
         "bin-compat": "full",
         "sort-packages": true
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/limenet/cloudflare-php/"
+        }
+    ]
 }
