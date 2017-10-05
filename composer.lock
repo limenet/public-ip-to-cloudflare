@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6347b0552f62d12ea0f4a4b8c71e7be6",
+    "content-hash": "bad48b5eba7d94ff6c8535e587789af7",
     "packages": [
         {
             "name": "cloudflare/sdk",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/limenet/cloudflare-php.git",
-                "reference": "566ab3fc705f319fc44b959f7a60583b935c3fbe"
+                "reference": "70ee68f755bcebf1b2ef18a4876183e7b5d857e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/limenet/cloudflare-php/zipball/566ab3fc705f319fc44b959f7a60583b935c3fbe",
-                "reference": "566ab3fc705f319fc44b959f7a60583b935c3fbe",
+                "url": "https://api.github.com/repos/limenet/cloudflare-php/zipball/70ee68f755bcebf1b2ef18a4876183e7b5d857e6",
+                "reference": "70ee68f755bcebf1b2ef18a4876183e7b5d857e6",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,7 @@
             "support": {
                 "source": "https://github.com/limenet/cloudflare-php/tree/master"
             },
-            "time": "2017-10-03T19:16:58+00:00"
+            "time": "2017-10-05T12:44:09+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
