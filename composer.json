@@ -9,11 +9,5 @@
         "optimize-autoloader": true,
         "bin-compat": "full",
         "sort-packages": true
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "https://github.com/limenet/cloudflare-php"
-        }
-    ]
+    }
 }

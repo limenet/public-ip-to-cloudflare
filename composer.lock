@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bad48b5eba7d94ff6c8535e587789af7",
+    "content-hash": "181cafe0c293fc626e0d517444d76d5a",
     "packages": [
         {
             "name": "cloudflare/sdk",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/limenet/cloudflare-php.git",
-                "reference": "70ee68f755bcebf1b2ef18a4876183e7b5d857e6"
+                "url": "https://github.com/cloudflare/cloudflare-php.git",
+                "reference": "49ed1c9e8f5a2eef8acc483ec445d7c0b66d86f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/limenet/cloudflare-php/zipball/70ee68f755bcebf1b2ef18a4876183e7b5d857e6",
-                "reference": "70ee68f755bcebf1b2ef18a4876183e7b5d857e6",
+                "url": "https://api.github.com/repos/cloudflare/cloudflare-php/zipball/49ed1c9e8f5a2eef8acc483ec445d7c0b66d86f1",
+                "reference": "49ed1c9e8f5a2eef8acc483ec445d7c0b66d86f1",
                 "shasum": ""
             },
             "require": {
@@ -36,11 +36,7 @@
                     "Cloudflare\\API\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "classmap": [
-                    "tests/"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -51,10 +47,7 @@
                 }
             ],
             "description": "PHP binding for v4 of the Cloudflare Client API.",
-            "support": {
-                "source": "https://github.com/limenet/cloudflare-php/tree/master"
-            },
-            "time": "2017-10-05T12:44:09+00:00"
+            "time": "2017-09-25T15:41:28+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
