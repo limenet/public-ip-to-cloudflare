@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "181cafe0c293fc626e0d517444d76d5a",
+    "content-hash": "14dedeb0054cbbedb5cd08861207a283",
     "packages": [
         {
             "name": "cloudflare/sdk",
-            "version": "dev-master",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cloudflare/cloudflare-php.git",
-                "reference": "49ed1c9e8f5a2eef8acc483ec445d7c0b66d86f1"
+                "reference": "e1cf1ae41f8865e782a551595da80074bf679b89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cloudflare/cloudflare-php/zipball/49ed1c9e8f5a2eef8acc483ec445d7c0b66d86f1",
-                "reference": "49ed1c9e8f5a2eef8acc483ec445d7c0b66d86f1",
+                "url": "https://api.github.com/repos/cloudflare/cloudflare-php/zipball/e1cf1ae41f8865e782a551595da80074bf679b89",
+                "reference": "e1cf1ae41f8865e782a551595da80074bf679b89",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
                 }
             ],
             "description": "PHP binding for v4 of the Cloudflare Client API.",
-            "time": "2017-09-25T15:41:28+00:00"
+            "time": "2017-10-06T23:03:10+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -489,9 +489,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "cloudflare/sdk": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
