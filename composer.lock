@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "14dedeb0054cbbedb5cd08861207a283",
+    "content-hash": "8fc1a1e05b4c1a513d383759d27396c4",
     "packages": [
         {
             "name": "cloudflare/sdk",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cloudflare/cloudflare-php.git",
-                "reference": "e1cf1ae41f8865e782a551595da80074bf679b89"
+                "reference": "3cfaed1019a9f9f1c23e5c5e06ae0163cacea0e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cloudflare/cloudflare-php/zipball/e1cf1ae41f8865e782a551595da80074bf679b89",
-                "reference": "e1cf1ae41f8865e782a551595da80074bf679b89",
+                "url": "https://api.github.com/repos/cloudflare/cloudflare-php/zipball/3cfaed1019a9f9f1c23e5c5e06ae0163cacea0e5",
+                "reference": "3cfaed1019a9f9f1c23e5c5e06ae0163cacea0e5",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
                 }
             ],
             "description": "PHP binding for v4 of the Cloudflare Client API.",
-            "time": "2017-10-06T23:03:10+00:00"
+            "time": "2017-10-23T21:37:38+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -283,16 +283,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "3.6.7",
+            "version": "8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "f26db010d5cd038417290b8daf4c45e12d473b4a"
+                "reference": "dc8282d086362d946520781c8908e0b084f01438"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/f26db010d5cd038417290b8daf4c45e12d473b4a",
-                "reference": "f26db010d5cd038417290b8daf4c45e12d473b4a",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/dc8282d086362d946520781c8908e0b084f01438",
+                "reference": "dc8282d086362d946520781c8908e0b084f01438",
                 "shasum": ""
             },
             "require": {
@@ -300,13 +300,14 @@
                 "php": ">=5.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "*"
+                "phpunit/phpunit": "*",
+                "squizlabs/php_codesniffer": "*"
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "src/"
-                ]
+                "psr-4": {
+                    "Curl\\": "src/Curl/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -317,7 +318,7 @@
                     "name": "Zach Borboa"
                 }
             ],
-            "description": "PHP Curl Class is an object-oriented wrapper of the PHP cURL extension.",
+            "description": "PHP Curl Class makes it easy to send HTTP requests and integrate with web APIs.",
             "homepage": "https://github.com/php-curl-class/php-curl-class",
             "keywords": [
                 "api",
@@ -335,7 +336,7 @@
                 "web service",
                 "xml"
             ],
-            "time": "2015-07-29T00:48:33+00:00"
+            "time": "2017-11-02T06:07:25+00:00"
         },
         {
             "name": "psr/http-message",
