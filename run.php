@@ -44,10 +44,10 @@ try {
     $recordId = $cfCall->result[0]->id;
 
     $cfCall = $cfDns->updateRecordDetails($zoneId, $recordId, [
-        'type'      => $_ENV['RECORD_TYPE'],
-        'name'      => $_ENV['SUBDOMAIN'],
-        'content'   => $publicIp,
-        'proxied'   => $_ENV['PROXIED'],
+        'type'    => $_ENV['RECORD_TYPE'],
+        'name'    => $_ENV['SUBDOMAIN'],
+        'content' => $publicIp,
+        'proxied' => $_ENV['PROXIED'],
         ]
     );
 } catch (Exception $e) {
