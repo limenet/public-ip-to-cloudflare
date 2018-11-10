@@ -34,7 +34,8 @@ try {
     $cfCall = $cfZone->getZoneID($_ENV['DOMAIN']);
     $zoneId = $cfCall;
 
-    $cfCall = $cfDns->listRecords($zoneId, '', $_ENV['SUBDOMAIN']);
+    $cfCall = $cfDns->listRecords($zoneId, 'A', $_ENV['SUBDOMAIN']);
+
     if (count($cfCall->result) !== 1) {
         $climate->error(sprintf('Record %2$s not found in zone %1$s', $_ENV['DOMAIN'], $_ENV['SUBDOMAIN']));
         $climate->error('Please first add the record manually. This will be fixed in a future version.');
