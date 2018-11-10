@@ -2,3 +2,4 @@ vendor/
 .env
 .git
 Dockerfile
+README.md
