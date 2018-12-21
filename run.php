@@ -8,9 +8,8 @@ $dotenv->required(['CLOUDFLARE_EMAIL', 'CLOUDFLARE_KEY', 'DOMAIN', 'SUBDOMAIN', 
 if (empty($_ENV['PROXIED'])) {
     $_ENV['PROXIED'] = false;
 } else {
-    $_ENV['PROXIED'] = (bool) $_ENV['PROXIED'];
+    $_ENV['PROXIED'] = filter_var($_ENV['PROXIED'], FILTER_VALIDATE_BOOLEAN);
 }
-
 $climate = new League\CLImate\CLImate();
 
 $climate->out('--- public-ip-to-cloudflare ---');
