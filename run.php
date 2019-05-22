@@ -59,7 +59,8 @@ try {
             $curlPushover->post('https://api.pushover.net/1/messages.json', [
                 'token' => $_ENV['PUSHOVER_API_TOKEN'],
                 'user' => $_ENV['PUSHOVER_USER'],
-                'message' => sprintf("IP for %s has changed from %s to %s", $_ENV['SUBDOMAIN'], $currentIp, $publicIp),
+                'title' => sprintf('IP change for %s %s', $_ENV['RECORD_TYPE'], $_ENV['SUBDOMAIN']),
+                'message' => sprintf("IP has changed from %s to %s", $currentIp, $publicIp),
             ]);
         }
     }
