@@ -52,15 +52,15 @@ try {
         ]
     );
 
-    if($currentIp !== $publicIp) {
+    if ($currentIp !== $publicIp) {
         $climate->info(sprintf('IP has changed from %s to %s', $currentIp, $publicIp));
-        if(array_key_exists('PUSHOVER_API_TOKEN', $_ENV) && array_key_exists('PUSHOVER_USER', $_ENV)){
+        if (array_key_exists('PUSHOVER_API_TOKEN', $_ENV) && array_key_exists('PUSHOVER_USER', $_ENV)) {
             $curlPushover = new Curl();
             $curlPushover->post('https://api.pushover.net/1/messages.json', [
-                'token' => $_ENV['PUSHOVER_API_TOKEN'],
-                'user' => $_ENV['PUSHOVER_USER'],
-                'title' => sprintf('IP change for %s %s', $_ENV['RECORD_TYPE'], $_ENV['SUBDOMAIN']),
-                'message' => sprintf("IP has changed from %s to %s", $currentIp, $publicIp),
+                'token'   => $_ENV['PUSHOVER_API_TOKEN'],
+                'user'    => $_ENV['PUSHOVER_USER'],
+                'title'   => sprintf('IP change for %s %s', $_ENV['RECORD_TYPE'], $_ENV['SUBDOMAIN']),
+                'message' => sprintf('IP has changed from %s to %s', $currentIp, $publicIp),
             ]);
         }
     }
