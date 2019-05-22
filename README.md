@@ -13,3 +13,7 @@ Create a `.env` file by running `cp .env.example .env` and customizing it to sui
 ### Docker
 
 `docker run -e "DOMAIN=example.com" -e "SUBDOMAIN=some.example.com" -e "CLOUDFLARE_EMAIL=info@example.com" -e "CLOUDFLARE_KEY=c0ffee" -e "RECORD_TYPE=A" limenet/public-ip-to-cloudflare`
+
+###
+
+You can optionally supply `PUSHOVER_API_TOKEN` and `PUSHOVER_USER` to be notified via Pushover if the IP has changed since the last update.
