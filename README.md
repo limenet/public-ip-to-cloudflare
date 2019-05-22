@@ -1,5 +1,7 @@
 # public-ip-to-cloudflare
 
+[![](https://images.microbadger.com/badges/image/limenet/public-ip-to-cloudflare.svg)](https://microbadger.com/images/limenet/public-ip-to-cloudflare)
+
 Sets some Cloudflare record to the public IP of the server the script is running on. Very useful as a cheap-and-dirty dynamic DNS solution.
 
 ## Usage
