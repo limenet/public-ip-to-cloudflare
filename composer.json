@@ -1,13 +1,19 @@
 {
-    "require": {
-        "cloudflare/sdk": "^1.0.4",
-        "league/climate": "^3.1",
-        "php-curl-class/php-curl-class": "^8.0",
-        "vlucas/phpdotenv": "^2.0"
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "bin-compat": "full",
-        "sort-packages": true
+  "require": {
+    "cloudflare/sdk": "dev-feature/api-token",
+    "league/climate": "^3.1",
+    "php-curl-class/php-curl-class": "^8.0",
+    "vlucas/phpdotenv": "^3.6"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "bin-compat": "full",
+    "sort-packages": true
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/ProfiCloS/cloudflare-php"
     }
+  ]
 }

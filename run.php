@@ -2,30 +2,45 @@
 
 require 'vendor/autoload.php';
 
-$dotenv = new Dotenv\Dotenv(__DIR__);
+
+use Curl\Curl;
+use Dotenv\Dotenv;
+use Cloudflare\API\Auth\APIKey;
+use Cloudflare\API\Auth\APIToken;
+use Cloudflare\API\Adapter\Guzzle;
+use Cloudflare\API\Endpoints\DNS;
+use Cloudflare\API\Endpoints\Zones;
+
+$dotenv = Dotenv::create(__DIR__);
 $dotenv->load();
-$dotenv->required(['CLOUDFLARE_EMAIL', 'CLOUDFLARE_KEY', 'DOMAIN', 'SUBDOMAIN', 'RECORD_TYPE']);
+
+$dotenv->required(['DOMAIN', 'SUBDOMAIN', 'RECORD_TYPE']);
+
+$climate = new League\CLImate\CLImate();
+$climate->out('--- public-ip-to-cloudflare ---');
+
+$curlIP = new Curl();
+$publicIp = $curlIP->get('http://ipecho.net/plain');
+$climate->out('Your public IP address is '.$publicIp);
+
+if(isset($_ENV['CLOUDFLARE_EMAIL'])){
+    $dotenv->required(['CLOUDFLARE_EMAIL', 'CLOUDFLARE_KEY']);
+    $cloudflareRead = new Guzzle(new APIKey($_ENV['CLOUDFLARE_EMAIL'], $_ENV['CLOUDFLARE_KEY']));
+    $cloudflareEdit = new Guzzle(new APIKey($_ENV['CLOUDFLARE_EMAIL'], $_ENV['CLOUDFLARE_KEY']));
+} else {
+    $dotenv->required(['CLOUDFLARE_API_TOKEN_READ', 'CLOUDFLARE_API_TOKEN_EDIT']);
+    $cloudflareRead = new Guzzle(new APIToken($_ENV['CLOUDFLARE_API_TOKEN_READ']));
+    $cloudflareEdit = new Guzzle(new APIToken($_ENV['CLOUDFLARE_API_TOKEN_EDIT']));
+}
+
 if (empty($_ENV['PROXIED'])) {
     $_ENV['PROXIED'] = false;
 } else {
     $_ENV['PROXIED'] = filter_var($_ENV['PROXIED'], FILTER_VALIDATE_BOOLEAN);
 }
-$climate = new League\CLImate\CLImate();
 
-$climate->out('--- public-ip-to-cloudflare ---');
-
-use Curl\Curl;
-
-$curlIP = new Curl();
-
-$cfKey = new \Cloudflare\API\Auth\APIKey($_ENV['CLOUDFLARE_EMAIL'], $_ENV['CLOUDFLARE_KEY']);
-$cfAdapter = new Cloudflare\API\Adapter\Guzzle($cfKey);
-$cfDns = new \Cloudflare\API\Endpoints\DNS($cfAdapter);
-$cfZone = new \Cloudflare\API\Endpoints\Zones($cfAdapter);
-
-$publicIp = $curlIP->get('http://ipecho.net/plain');
-
-$climate->out('Your public IP address is '.$publicIp);
+$cfZone = new Zones($cloudflareRead);
+$cfDns = new DNS($cloudflareEdit);
 
 $exceptionThrown = false;
 
