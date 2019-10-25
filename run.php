@@ -2,14 +2,13 @@
 
 require 'vendor/autoload.php';
 
-
-use Curl\Curl;
-use Dotenv\Dotenv;
+use Cloudflare\API\Adapter\Guzzle;
 use Cloudflare\API\Auth\APIKey;
 use Cloudflare\API\Auth\APIToken;
-use Cloudflare\API\Adapter\Guzzle;
 use Cloudflare\API\Endpoints\DNS;
 use Cloudflare\API\Endpoints\Zones;
+use Curl\Curl;
+use Dotenv\Dotenv;
 
 $dotenv = Dotenv::create(__DIR__);
 $dotenv->load();
@@ -23,7 +22,7 @@ $curlIP = new Curl();
 $publicIp = $curlIP->get('http://ipecho.net/plain');
 $climate->out('Your public IP address is '.$publicIp);
 
-if(isset($_ENV['CLOUDFLARE_EMAIL'])){
+if (isset($_ENV['CLOUDFLARE_EMAIL'])) {
     $dotenv->required(['CLOUDFLARE_EMAIL', 'CLOUDFLARE_KEY']);
     $cloudflareRead = new Guzzle(new APIKey($_ENV['CLOUDFLARE_EMAIL'], $_ENV['CLOUDFLARE_KEY']));
     $cloudflareEdit = new Guzzle(new APIKey($_ENV['CLOUDFLARE_EMAIL'], $_ENV['CLOUDFLARE_KEY']));
